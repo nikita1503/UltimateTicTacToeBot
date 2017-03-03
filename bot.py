@@ -83,7 +83,7 @@ class bot_player():
         state_value = 0
 
         if board.block_status[current_block[0]][current_block[1]]=='d':
-            return -100, block_value
+            return 0, block_value
 
         #evaluate rows
         for i in range(4):
@@ -109,23 +109,12 @@ class bot_player():
             if board.board_status[current_block[0]*4+i].count('o') == 3:
                 state_value -= 100
             if board.board_status[current_block[0]*4+i].count('o') == 4:
-                state_value -= 1000
-
-            #row eavaluation of 'o'
-            if board.board_status[current_block[0]*4+i].count('o') == 0:
-                state_value -= 0
-            if board.board_status[current_block[0]*4+i].count('o') == 1:
-                state_value -= 10
-            if board.board_status[current_block[0]*4+i].count('o') == 2:
-                state_value -= 30
-            if board.board_status[current_block[0]*4+i].count('o') == 3:
                 state_value -= 100
-            if board.board_status[current_block[0]*4+i].count('o') == 4:
-                state_value -= 1000
+
 
         #evaluate columns
         for i in range(4):
-            col = [x[i] for x in board.board_status[current_block[1]*4:current_block[0]*4+4]]
+            col = [x[current_block[1]*4+i] for x in board.board_status[current_block[0]*4:current_block[0]*4+4]]
             #column eavaluation of 'x'
             if col.count('x') == 0:
                 state_value += 0
@@ -149,6 +138,7 @@ class bot_player():
                 state_value -= 100
             if col.count('o') == 4:
                 state_value -= 1000
+
 
         #primary diagonal eavaluation
         diagonal = [board.board_status[current_block[0]*4+i][current_block[1]*4+i] for i in range(4)]
@@ -357,11 +347,12 @@ class bot_player():
     def minimax(self, board, old_move, isMax, alpha, beta, depth, block_value):
         self.co+=1
         victory, isleaf=self.game_won(board)
-        if isleaf:
-            return (None, victory)
 
         #calculate value of the state
-        state_value, block_value = self.calculate_value(board,old_move, block_value)
+        block_value_copy = [row[:] for row in block_value]
+        state_value, block_value = self.calculate_value(board,old_move, block_value_copy)
+        if isleaf:
+            return (None, victory)
         if depth > 5:
             return (None, block_value)
 
@@ -410,7 +401,6 @@ class bot_player():
             for cell in cells:
                 board.board_status[cell[0]][cell[1]]='o'
                 block_win = self.check_block_win(cell, board)
-                #print block_win
                 if block_win==1:
                     board.block_status[cell[0]//4][cell[1]//4]='o'
                 if block_win==2:
@@ -436,7 +426,6 @@ class bot_player():
 
 
     def move(self, board, old_move, flag):
-        #print "hello"
         self.co=0
 
         if flag=='x':
@@ -445,14 +434,19 @@ class bot_player():
             isMax=False;
         next_move=None
 
+        if old_move!=(-1,-1):
+            block_value_copy = [row[:] for row in self.block_value]
+            value, self.block_value = self.calculate_value(board, old_move, block_value_copy)
+            self.block_value = [row[:] for row in block_value_copy]
+
+
+
         try :
-            next_move, optimal=self.minimax(board, old_move, isMax, -1000, 1000, 1, self.block_value)
-            value, self.block_value = self.calculate_value(board, old_move, self.block_value)
-            #print next_move
+            block_value_copy = [row[:] for row in self.block_value]
+            next_move, optimal=self.minimax(board, old_move, isMax, -1000, 1000, 1, block_value_copy)
+            block_value_copy = [row[:] for row in self.block_value]
+            value, self.block_value = self.calculate_value(board, next_move, block_value_copy)
+            self.block_value = [row[:] for row in block_value_copy]
         except Exception as e:
             print e
-        #board.print_board()
-        print self.co
-        print next_move
-        #print "bye"
         return (next_move[0],next_move[1])
