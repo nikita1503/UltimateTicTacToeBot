@@ -173,7 +173,7 @@ def gameplay(obj1, obj2):				#game simulator
 	old_move = (-1,-1)
 	WINNER = ''
 	MESSAGE = ''
-	TIME = 2000
+	TIME = 15
 	pts1 = 0
 	pts2 = 0
 
@@ -237,6 +237,7 @@ def gameplay(obj1, obj2):				#game simulator
 		try:
 			p2_move = obj2.move(game_board, old_move, fl2)
 		except TimedOutExc:
+            		print "hell"
 			WINNER = 'P1'
 			MESSAGE = 'TIME OUT'
 			pts1 = 16
@@ -324,8 +325,8 @@ if __name__ == '__main__':
                 obj2 = bot_player()
                 obj1 = Manual_Player()
         elif option == '5':
-                obj1 = Random_Player()
-                obj2 = bot_player()
+                obj2 = Random_Player()
+                obj1 = bot_player()
 	else:
 		print 'Invalid option'
 		sys.exit(1)
