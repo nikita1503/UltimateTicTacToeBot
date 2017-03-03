@@ -194,7 +194,6 @@ def gameplay(obj1, obj2):				#game simulator
 			pts2 = 16
 			break
 		except Exception as e:
-                        print e
 			WINNER = 'P2'
 			MESSAGE = 'INVALID MOVE'
 			pts2 = 16
@@ -209,7 +208,6 @@ def gameplay(obj1, obj2):				#game simulator
 			break
 		if game_board.update(old_move, p1_move, fl1) == 'UNSUCCESSFUL':
 			WINNER = 'P2'
-            		print "t"
 			MESSAGE = 'INVALID MOVE'
 			pts2 = 16
 			break
@@ -237,14 +235,12 @@ def gameplay(obj1, obj2):				#game simulator
 		try:
 			p2_move = obj2.move(game_board, old_move, fl2)
 		except TimedOutExc:
-            		print "hell"
 			WINNER = 'P1'
 			MESSAGE = 'TIME OUT'
 			pts1 = 16
 			break
 		except Exception as e:
 			WINNER = 'P1'
-            		print e
 			MESSAGE = 'INVALID MOVE'
 			pts1 = 16
 			break
@@ -256,7 +252,6 @@ def gameplay(obj1, obj2):				#game simulator
 			break
 		if game_board.update(old_move, p2_move, fl2) == 'UNSUCCESSFUL':
 			WINNER = 'P1'
-            		print "h"
 			MESSAGE = 'INVALID MOVE'
 			pts1 = 16
 			break
@@ -322,11 +317,8 @@ if __name__ == '__main__':
 		obj1 = Manual_Player()
 		obj2 = Manual_Player()
         elif option == '4':
-                obj2 = bot_player()
-                obj1 = Manual_Player()
-        elif option == '5':
-                obj2 = Random_Player()
                 obj1 = bot_player()
+                obj2 = Random_Player()
 	else:
 		print 'Invalid option'
 		sys.exit(1)

@@ -203,22 +203,153 @@ class bot_player():
             state_value -= 1000
 
         #update value of current block
-        self.block_value[current_block[0]][current_block[1]] = state_value
+        block_value[current_block[0]][current_block[1]] = state_value
         value=0
+        br1=300
+        br2=1200
         #rows
         for i in range(4):
-            rvalue = (block_value[i][0]/100)*(block_value[i][1]/100)*(block_value[i][2]/100)*(block_value[i][3]/100)
-            value+=rvalue
+            if block_value[i][0]>br1 or block_value[i][1]>br1 or block_value[i][2]>br1 or block_value[i][3]>br1:
+                value+=10
+            if block_value[i][0]>br2 or block_value[i][1]>br2 or block_value[i][2]>br2 or block_value[i][3]>br2:
+                value+=20
+            if( ( block_value[i][0]>br1 and block_value[i][1]>br1 ) or ( block_value[i][0]>br1 and block_value[i][2]>br1 ) or ( block_value[i][0]>br1 and block_value[i][3]>br1 ) or ( block_value[i][1]>br1 and block_value[i][2]>br1 ) or ( block_value[i][1]>br1 and block_value[i][3]>br1 ) or ( block_value[i][2]>br1 and block_value[i][3]>br1 )):
+                value+=50
+            if( ( block_value[i][0]>br2 and block_value[i][1]>br2 ) or ( block_value[i][0]>br2 and block_value[i][2]>br2 ) or ( block_value[i][0]>br2 and block_value[i][3]>br2 ) or ( block_value[i][1]>br2 and block_value[i][2]>br2 ) or ( block_value[i][1]>br2 and block_value[i][3]>br2 ) or ( block_value[i][2]>br2 and block_value[i][3]>br2 )):
+                value+=200
+            if ((block_value[i][0]>br1 and block_value[i][1]>br1 and block_value[i][2]>br1) or (block_value[i][0]>br1 and block_value[i][1]>br1 and block_value[i][3]>br1)) or (block_value[i][0]>br1 and block_value[i][2]>br1 and block_value[i][3]>br1) or (block_value[i][1]>br1 and block_value[i][2]>br1 and block_value[i][3]>br1):
+                value+=500
+            if ((block_value[i][0]>br2 and block_value[i][1]>br2 and block_value[i][2]>br2) or (block_value[i][0]>br2 and block_value[i][1]>br2 and block_value[i][3]>br2)) or (block_value[i][0]>br2 and block_value[i][2]>br2 and block_value[i][3]>br2) or (block_value[i][1]>br2 and block_value[i][2]>br2 and block_value[i][3]>br2):
+                value+=800
+            if block_value[i][0]>br1 and block_value[i][1]>br1 and block_value[i][2]>br1 and block_value[i][3]>br1:
+                value+=800
+            if block_value[i][0]>br2 and block_value[i][1]>br2 and block_value[i][2]>br2 and block_value[i][3]>br2:
+                value+=1200
+
+            if block_value[i][0]<-1*br1 or block_value[i][1]>br1 or block_value[i][2]<-1*br1 or block_value[i][3]<-1*br1:
+                value-=10
+            if block_value[i][0]<-1*br2 or block_value[i][1]<-1*br2 or block_value[i][2]<-1*br2 or block_value[i][3]<-1*br2:
+                value-=20
+            if( ( block_value[i][0]<-1*br1 and block_value[i][1]<-1*br1 ) or ( block_value[i][0]<-1*br1 and block_value[i][2]<-1*br1 ) or ( block_value[i][0]<-1*br1 and block_value[i][3]<-1*br1 ) or ( block_value[i][1]<-1*br1 and block_value[i][2]<-1*br1 ) or ( block_value[i][1]<-1*br1 and block_value[i][3]<-1*br1 ) or ( block_value[i][2]<-1*br1 and block_value[i][3]<-1*br1 )):
+                value-=50
+            if( ( block_value[i][0]<-1*br2 and block_value[i][1]<-1*br2 ) or ( block_value[i][0]<-1*br2 and block_value[i][2]<-1*br2 ) or ( block_value[i][0]<-1*br2 and block_value[i][3]<-1*br2 ) or ( block_value[i][1]<-1*br2 and block_value[i][2]<-1*br2 ) or ( block_value[i][1]<-1*br2 and block_value[i][3]<-1*br2 ) or ( block_value[i][2]<-1*br2 and block_value[i][3]<-1*br2 )):
+                value-=200
+            if ((block_value[i][0]<-1*br1 and block_value[i][1]<-1*br1 and block_value[i][2]<-1*br1) or (block_value[i][0]<-1*br1 and block_value[i][1]<-1*br1 and block_value[i][3]<-1*br1)) or (block_value[i][0]<-1*br1 and block_value[i][2]<-1*br1 and block_value[i][3]<-1*br1) or (block_value[i][1]<-1*br1 and block_value[i][2]<-1*br1 and block_value[i][3]<-1*br1):
+                value-=500
+            if ((block_value[i][0]<-1*br2 and block_value[i][1]<-1*br2 and block_value[i][2]<-1*br2) or (block_value[i][0]<-1*br2 and block_value[i][1]<-1*br2 and block_value[i][3]<-1*br2)) or (block_value[i][0]<-1*br2 and block_value[i][2]<-1*br2 and block_value[i][3]<-1*br2) or (block_value[i][1]<-1*br2 and block_value[i][2]<-1*br2 and block_value[i][3]<-1*br2):
+                value-=800
+            if block_value[i][0]<-1*br1 and block_value[i][1]<-1*br1 and block_value[i][2]<-1*br1 and block_value[i][3]<-1*br1:
+                value-=800
+            if block_value[i][0]<-1*br2 and block_value[i][1]<-1*br2 and block_value[i][2]<-1*br2 and block_value[i][3]<-1*br2:
+                value-=1200
+
         #columns
         for i in range(4):
-            cvalue = (block_value[0][i]/100)*(block_value[1][i]/100)*(block_value[2][i]/100)*(block_value[3][i]/100)
-            value+=cvalue
+            if block_value[0][i]>br1 or block_value[1][i]>br1 or block_value[2][i]>br1 or block_value[3][i]>br1:
+                value+=10
+            if block_value[0][i]>br2 or block_value[1][i]>br2 or block_value[2][i]>br2 or block_value[3][i]>br2:
+                value+=20
+            if( ( block_value[0][i]>br1 and block_value[1][i]>br1 ) or ( block_value[0][i]>br1 and block_value[2][i]>br1 ) or ( block_value[0][i]>br1 and block_value[3][i]>br1 ) or ( block_value[1][i]>br1 and block_value[2][i]>br1 ) or ( block_value[1][i]>br1 and block_value[3][i]>br1 ) or ( block_value[2][i]>br1 and block_value[3][i]>br1 )):
+                value+=50
+            if( ( block_value[0][i]>br2 and block_value[1][i]>br2 ) or ( block_value[0][i]>br2 and block_value[2][i]>br2 ) or ( block_value[0][i]>br2 and block_value[3][i]>br2 ) or ( block_value[1][i]>br2 and block_value[2][i]>br2 ) or ( block_value[1][i]>br2 and block_value[3][i]>br2 ) or ( block_value[2][i]>br2 and block_value[3][i]>br2 )):
+                value+=200
+            if ((block_value[0][i]>br1 and block_value[1][i]>br1 and block_value[2][i]>br1) or (block_value[0][i]>br1 and block_value[1][i]>br1 and block_value[3][i]>br1)) or (block_value[0][i]>br1 and block_value[2][i]>br1 and block_value[3][i]>br1) or (block_value[1][i]>br1 and block_value[2][i]>br1 and block_value[3][i]>br1):
+                value+=500
+            if ((block_value[0][i]>br2 and block_value[1][i]>br2 and block_value[2][i]>br2) or (block_value[0][i]>br2 and block_value[1][i]>br2 and block_value[3][i]>br2)) or (block_value[0][i]>br2 and block_value[2][i]>br2 and block_value[3][i]>br2) or (block_value[1][i]>br2 and block_value[2][i]>br2 and block_value[3][i]>br2):
+                value+=800
+            if block_value[0][i]>br1 and block_value[1][i]>br1 and block_value[2][i]>br1 and block_value[3][i]>br1:
+                value+=800
+            if block_value[0][i]>br2 and block_value[1][i]>br2 and block_value[2][i]>br2 and block_value[3][i]>br2:
+                value+=1200
+
+            if block_value[0][i]<-1*br1 or block_value[1][i]<-1*br1 or block_value[2][i]<-1*br1 or block_value[3][i]<-1*br1:
+                value-=10
+            if block_value[0][i]<-1*br2 or block_value[1][i]<-1*br2 or block_value[2][i]<-1*br2 or block_value[3][i]<-1*br2:
+                value-=20
+            if( ( block_value[0][i]<-1*br1 and block_value[1][i]<-1*br1 ) or ( block_value[0][i]<-1*br1 and block_value[2][i]<-1*br1 ) or ( block_value[0][i]<-1*br1 and block_value[3][i]<-1*br1 ) or ( block_value[1][i]<-1*br1 and block_value[2][i]<-1*br1 ) or ( block_value[1][i]<-1*br1 and block_value[3][i]<-1*br1 ) or ( block_value[2][i]<-1*br1 and block_value[3][i]<-1*br1 )):
+                value-=50
+            if( ( block_value[0][i]<-1*br2 and block_value[1][i]<-1*br2 ) or ( block_value[0][i]<-1*br2 and block_value[2][i]<-1*br2 ) or ( block_value[0][i]<-1*br2 and block_value[3][i]<-1*br2 ) or ( block_value[1][i]<-1*br2 and block_value[2][i]<-1*br2 ) or ( block_value[1][i]<-1*br2 and block_value[3][i]<-1*br2 ) or ( block_value[2][i]<-1*br2 and block_value[3][i]<-1*br2 )):
+                value-=200
+            if ((block_value[0][i]<-1*br1 and block_value[1][i]<-1*br1 and block_value[2][i]<-1*br1) or (block_value[0][i]<-1*br1 and block_value[1][i]<-1*br1 and block_value[3][i]<-1*br1)) or (block_value[0][i]<-1*br1 and block_value[2][i]<-1*br1 and block_value[3][i]<-1*br1) or (block_value[1][i]<-1*br1 and block_value[2][i]<-1*br1 and block_value[3][i]<-1*br1):
+                value-=500
+            if ((block_value[0][i]<-1*br2 and block_value[1][i]<-1*br2 and block_value[2][i]<-1*br2) or (block_value[0][i]<-1*br2 and block_value[1][i]<-1*br2 and block_value[3][i]<-1*br2)) or (block_value[0][i]<-1*br2 and block_value[2][i]<-1*br2 and block_value[3][i]<-1*br2) or (block_value[1][i]<-1*br2 and block_value[2][i]<-1*br2 and block_value[3][i]<-1*br2):
+                value-=800
+            if block_value[0][i]<-1*br1 and block_value[1][i]<-1*br1 and block_value[2][i]<-1*br1 and block_value[3][i]<-1*br1:
+                value-=800
+            if block_value[0][i]<-1*br2 and block_value[1][i]<-1*br2 and block_value[2][i]<-1*br2 and block_value[3][i]<-1*br2:
+                value-=1200
+
         #primary diagonal
-        dpvalue = (block_value[0][0]/100)*(block_value[1][1]/100)*(block_value[2][2]/100)*(block_value[3][3]/100)
-        value+=dpvalue
+            if block_value[0][0]>br1 or block_value[1][1]>br1 or block_value[2][2]>br1 or block_value[3][3]>br1:
+                value+=10
+            if block_value[0][0]>br2 or block_value[1][1]>br2 or block_value[2][2]>br2 or block_value[3][3]>br2:
+                value+=20
+            if( ( block_value[0][0]>br1 and block_value[1][1]>br1 ) or ( block_value[0][0]>br1 and block_value[2][2]>br1 ) or ( block_value[0][0]>br1 and block_value[3][3]>br1 ) or ( block_value[1][1]>br1 and block_value[2][2]>br1 ) or ( block_value[1][1]>br1 and block_value[3][3]>br1 ) or ( block_value[2][2]>br1 and block_value[3][3]>br1 )):
+                value+=50
+            if( ( block_value[0][0]>br2 and block_value[1][1]>br2 ) or ( block_value[0][0]>br2 and block_value[2][2]>br2 ) or ( block_value[0][0]>br2 and block_value[3][3]>br2 ) or ( block_value[1][1]>br2 and block_value[2][2]>br2 ) or ( block_value[1][1]>br2 and block_value[3][3]>br2 ) or ( block_value[2][2]>br2 and block_value[3][3]>br2 )):
+                value+=200
+            if ((block_value[0][0]>br1 and block_value[1][1]>br1 and block_value[2][2]>br1) or (block_value[0][0]>br1 and block_value[1][1]>br1 and block_value[3][3]>br1)) or (block_value[0][0]>br1 and block_value[2][2]>br1 and block_value[3][3]>br1) or (block_value[1][1]>br1 and block_value[2][2]>br1 and block_value[3][3]>br1):
+                value+=500
+            if ((block_value[0][0]>br2 and block_value[1][1]>br2 and block_value[2][2]>br2) or (block_value[0][0]>br2 and block_value[1][1]>br2 and block_value[3][3]>br2)) or (block_value[0][0]>br2 and block_value[2][2]>br2 and block_value[3][3]>br2) or (block_value[1][1]>br2 and block_value[2][2]>br2 and block_value[3][3]>br2):
+                value+=800
+            if block_value[0][0]>br1 and block_value[1][1]>br1 and block_value[2][2]>br1 and block_value[3][3]>br1:
+                value+=800
+            if block_value[0][0]>br2 and block_value[1][1]>br2 and block_value[2][2]>br2 and block_value[3][3]>br2:
+                value+=1200
+
+            if block_value[0][0]<-1*br1 or block_value[1][1]<-1*br1 or block_value[2][2]<-1*br1 or block_value[3][3]<-1*br1:
+                value-=10
+            if block_value[0][0]<-1*br2 or block_value[1][1]<-1*br2 or block_value[2][2]<-1*br2 or block_value[3][3]<-1*br2:
+                value-=20
+            if( ( block_value[0][0]<-1*br1 and block_value[1][1]<-1*br1 ) or ( block_value[0][0]<-1*br1 and block_value[2][2]<-1*br1 ) or ( block_value[0][0]<-1*br1 and block_value[3][3]<-1*br1 ) or ( block_value[1][1]<-1*br1 and block_value[2][2]<-1*br1 ) or ( block_value[1][1]<-1*br1 and block_value[3][3]<-1*br1 ) or ( block_value[2][2]<-1*br1 and block_value[3][3]<-1*br1 )):
+                value-=50
+            if( ( block_value[0][0]<-1*br2 and block_value[1][1]<-1*br2 ) or ( block_value[0][0]<-1*br2 and block_value[2][2]<-1*br2 ) or ( block_value[0][0]<-1*br2 and block_value[3][3]<-1*br2 ) or ( block_value[1][1]<-1*br2 and block_value[2][2]<-1*br2 ) or ( block_value[1][1]<-1*br2 and block_value[3][3]<-1*br2 ) or ( block_value[2][2]<-1*br2 and block_value[3][3]<-1*br2 )):
+                value-=200
+            if ((block_value[0][0]<-1*br1 and block_value[1][1]<-1*br1 and block_value[2][2]<-1*br1) or (block_value[0][0]<-1*br1 and block_value[1][1]<-1*br1 and block_value[3][3]<-1*br1)) or (block_value[0][0]<-1*br1 and block_value[2][2]<-1*br1 and block_value[3][3]<-1*br1) or (block_value[1][1]<-1*br1 and block_value[2][2]<-1*br1 and block_value[3][3]<-1*br1):
+                value-=500
+            if ((block_value[0][0]<-1*br2 and block_value[1][1]<-1*br2 and block_value[2][2]<-1*br2) or (block_value[0][0]<-1*br2 and block_value[1][1]<-1*br2 and block_value[3][3]<-1*br2)) or (block_value[0][0]<-1*br2 and block_value[2][2]<-1*br2 and block_value[3][3]<-1*br2) or (block_value[1][1]<-1*br2 and block_value[2][2]<-1*br2 and block_value[3][3]<-1*br2):
+                value-=800
+            if block_value[0][0]<-1*br1 and block_value[1][1]<-1*br1 and block_value[2][2]<-1*br1 and block_value[3][3]<-1*br1:
+                value-=800
+            if block_value[0][0]<-1*br2 and block_value[1][1]<-1*br2 and block_value[2][2]<-1*br2 and block_value[3][3]<-1*br2:
+                value-=1200
+
+
         #secondary diagonal
-        dsvalue = (block_value[0][3]/100)*(block_value[1][2]/100)*(block_value[2][1]/100)*(block_value[3][0]/100)
-        value+=dsvalue
+            if block_value[0][3]>br1 or block_value[1][2]>br1 or block_value[2][1]>br1 or block_value[3][0]>br1:
+                value+=10
+            if block_value[0][3]>br2 or block_value[1][2]>br2 or block_value[2][1]>br2 or block_value[3][0]>br2:
+                value+=20
+            if( ( block_value[0][3]>br1 and block_value[1][2]>br1 ) or ( block_value[0][3]>br1 and block_value[2][1]>br1 ) or ( block_value[0][3]>br1 and block_value[3][0]>br1 ) or ( block_value[1][2]>br1 and block_value[2][1]>br1 ) or ( block_value[1][2]>br1 and block_value[3][0]>br1 ) or ( block_value[2][1]>br1 and block_value[3][0]>br1 )):
+                value+=50
+            if( ( block_value[0][3]>br2 and block_value[1][2]>br2 ) or ( block_value[0][3]>br2 and block_value[2][1]>br2 ) or ( block_value[0][3]>br2 and block_value[3][0]>br2 ) or ( block_value[1][2]>br2 and block_value[2][1]>br2 ) or ( block_value[1][2]>br2 and block_value[3][0]>br2 ) or ( block_value[2][1]>br2 and block_value[3][0]>br2 )):
+                value+=200
+            if ((block_value[0][3]>br1 and block_value[1][2]>br1 and block_value[2][1]>br1) or (block_value[0][3]>br1 and block_value[1][2]>br1 and block_value[3][0]>br1)) or (block_value[0][3]>br1 and block_value[2][1]>br1 and block_value[3][0]>br1) or (block_value[1][2]>br1 and block_value[2][1]>br1 and block_value[3][0]>br1):
+                value+=500
+            if ((block_value[0][3]>br2 and block_value[1][2]>br2 and block_value[2][1]>br2) or (block_value[0][3]>br2 and block_value[1][2]>br2 and block_value[3][0]>br2)) or (block_value[0][3]>br2 and block_value[2][1]>br2 and block_value[3][0]>br2) or (block_value[1][2]>br2 and block_value[2][1]>br2 and block_value[3][0]>br2):
+                value+=800
+            if block_value[0][3]>br1 and block_value[1][2]>br1 and block_value[2][1]>br1 and block_value[3][0]>br1:
+                value+=800
+            if block_value[0][3]>br2 and block_value[1][2]>br2 and block_value[2][1]>br2 and block_value[3][0]>br2:
+                value+=1200
+
+            if block_value[0][3]<-1*br1 or block_value[1][2]<-1*br1 or block_value[2][1]<-1*br1 or block_value[3][0]<-1*br1:
+                value-=10
+            if block_value[0][3]<-1*br2 or block_value[1][2]<-1*br2 or block_value[2][1]<-1*br2 or block_value[3][0]<-1*br2:
+                value-=20
+            if( ( block_value[0][3]<-1*br1 and block_value[1][2]<-1*br1 ) or ( block_value[0][3]<-1*br1 and block_value[2][1]<-1*br1 ) or ( block_value[0][3]<-1*br1 and block_value[3][0]<-1*br1 ) or ( block_value[1][2]<-1*br1 and block_value[2][1]<-1*br1 ) or ( block_value[1][2]<-1*br1 and block_value[3][0]<-1*br1 ) or ( block_value[2][1]<-1*br1 and block_value[3][0]<-1*br1 )):
+                value-=50
+            if( ( block_value[0][3]<-1*br2 and block_value[1][2]<-1*br2 ) or ( block_value[0][3]<-1*br2 and block_value[2][1]<-1*br2 ) or ( block_value[0][3]<-1*br2 and block_value[3][0]<-1*br2 ) or ( block_value[1][2]<-1*br2 and block_value[2][1]<-1*br2 ) or ( block_value[1][2]<-1*br2 and block_value[3][0]<-1*br2 ) or ( block_value[2][1]<-1*br2 and block_value[3][0]<-1*br2 )):
+                value-=200
+            if ((block_value[0][3]<-1*br1 and block_value[1][2]<-1*br1 and block_value[2][1]<-1*br1) or (block_value[0][3]<-1*br1 and block_value[1][2]<-1*br1 and block_value[3][0]<-1*br1)) or (block_value[0][3]<-1*br1 and block_value[2][1]<-1*br1 and block_value[3][0]<-1*br1) or (block_value[1][2]<-1*br1 and block_value[2][1]<-1*br1 and block_value[3][0]<-1*br1):
+                value-=500
+            if ((block_value[0][3]<-1*br2 and block_value[1][2]<-1*br2 and block_value[2][1]<-1*br2) or (block_value[0][3]<-1*br2 and block_value[1][2]<-1*br2 and block_value[3][0]<-1*br2)) or (block_value[0][3]<-1*br2 and block_value[2][1]<-1*br2 and block_value[3][0]<-1*br2) or (block_value[1][2]<-1*br2 and block_value[2][1]<-1*br2 and block_value[3][0]<-1*br2):
+                value-=800
+            if block_value[0][3]<-1*br1 and block_value[1][2]<-1*br1 and block_value[2][1]<-1*br1 and block_value[3][0]<-1*br1:
+                value-=800
+            if block_value[0][3]<-1*br2 and block_value[1][2]<-1*br2 and block_value[2][1]<-1*br2 and block_value[3][0]<-1*br2:
+                value-=1200
+
         #return value, block_value
         return state_value, block_value
 
